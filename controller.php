@@ -24,9 +24,6 @@
                 $address = $_POST['address'];
                 $gender = $_POST['gender'];
 
-                if(empty($name) || strlen($name) < 5) {
-                    echo "<p>Error: Name requires a minimum of 5 characters</p>";
-                }
     
                 if (!preg_match ("/^[a-zA-z]*$/", $name)) {
                     echo "Only alphabets allowed";

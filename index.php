@@ -11,8 +11,8 @@ if (isset($_POST['update'])) {
     $student->updateRecord($id);
 }
 
-if (isset($_GET['deleteid'])) {
-    $deleteid = $_GET['deleteid'];
+if (isset($_REQUEST['deleteid'])) {
+    $deleteid = $_REQUEST['deleteid'];
     $student->deleteRecord($deleteid);
 }
 ?>
