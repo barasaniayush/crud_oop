@@ -1,15 +1,15 @@
 <?php
 include 'controller.php';
 
-$crud = new Crud();
+$student = new Student();
 
 //insert    
 if (isset($_POST['submit'])) {
-    $crud->insertRecord($_POST);
+    $student->insertRecord();
 }
 
 if (isset($_POST['update'])) {
-    $crud->updateRecord($_POST);
+    $student->updateRecord($id);
 }
 ?>
 
@@ -28,7 +28,7 @@ if (isset($_POST['update'])) {
     <?php
         if (isset($_GET['updateid'])) {
             $updateid = $_GET['updateid'];
-            $myrecord = $crud->displayRecordById($updateid);
+            $myrecord = $student->displayRecordById($updateid);
         ?>
         <h3>Update Record</h3>
             <form action="index.php" method="post">
@@ -65,19 +65,19 @@ if (isset($_POST['update'])) {
         <form action="index.php" method="post">
             <div class="form-group">
                 <label for="">Name</label>
-                <input type="text" name="name" id="name" class="form-control"><br>
+                <input type="text" name="name" id="name" class="form-control" required><br>
             </div>
             <div class="form-group">
                 <label for="">Email</label>
-                <input type="email" name="email" id="email" class="form-control"><br>
+                <input type="email" name="email" id="email" class="form-control" required><br>
             </div>
             <div class="form-group">
                 <label for="">Address</label>
-                <input type="text" name="address" id="address" class="form-control"><br>
+                <input type="text" name="address" id="address" class="form-control" required><br>
             </div>
             <div class="form-group">
                 <label for="">Phone</label>
-                <input type="text" name="phone" id="phone" class="form-control"><br>
+                <input type="text" name="phone" id="phone" class="form-control" required><br>
             </div>
             <div class="form-group">
                 <label for="">Gender</label>

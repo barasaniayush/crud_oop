@@ -1,9 +1,9 @@
 <?php
-    class Crud {
+    class Student {
         private $servername = 'localhost';
         private $username = 'root';
         private $password = '';
-        private $dbname = 'functional_crud';
+        private $dbname = 'user';
         private $conn;
 
         function __construct() {
@@ -17,23 +17,42 @@
         }
 
         public function insertRecord() {
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-            $phone = $_POST['phone'];
-            $address = $_POST['address'];
-            $gender = $_POST['gender'];
+            if($_SERVER["REQUEST_METHOD"] == "POST") {
+                $name = $_POST['name'];
+                $email = $_POST['email'];
+                $phone = $_POST['phone'];
+                $address = $_POST['address'];
+                $gender = $_POST['gender'];
 
-            $sql = "INSERT INTO `crud`(name, email, address, phone, gender) VALUES ('$name', '$email', '$address', '$phone', '$gender')";
-            $result = $this->conn->query($sql);
-            if($result) {
-                header('location:index.php');
-            } else {
-                echo "Error".$sql."<br>".$this->conn->error;
+                if(empty($name) || strlen($name) < 5) {
+                    echo "<p>Error: Name requires a minimum of 5 characters</p>";
+                }
+    
+                if (!preg_match ("/^[a-zA-z]*$/", $name)) {
+                    echo "Only alphabets allowed";
+                } 
+            
+                if (!preg_match ("/^[0-9]*$/", $phone)) {
+                    echo "Only number allowed";
+                }
+            
+                if (!preg_match ("/^[a-zA-z]*$/", $address)) {
+                    echo "Only address allowed";
+                } 
+                else {
+                    $sql = "INSERT INTO `student`(name, email, address, phone, gender) VALUES ('$name', '$email', '$address', '$phone', '$gender')";
+                    $result = $this->conn->query($sql);
+                    if($result) {
+                        header('location:index.php');
+                    } else {
+                        echo "Error".$sql."<br>".$this->conn->error;
+                    }
+                }
             }
         }
 
         public function displayRecord() {
-            $sql = "SELECT * FROM `crud`";
+            $sql = "SELECT * FROM `student`";
             $result = $this->conn->query($sql);
             if($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
@@ -44,7 +63,7 @@
         }
 
         public function displayRecordById($updateid) {
-            $sql = "SELECT * FROM `crud` WHERE id='$updateid'";
+            $sql = "SELECT * FROM `student` WHERE id='$updateid'";
             $result = $this->conn->query($sql);
             if($result->num_rows==1) {
                 $row = $result->fetch_assoc();
@@ -60,7 +79,7 @@
             $gender = $_POST['gender'];
             $editid = $_POST['hid'];
 
-            $sql = "UPDATE `crud` SET name='$name', email='$email', address='$address', phone='$phone', gender='$gender' WHERE id='$editid'";
+            $sql = "UPDATE `student` SET name='$name', email='$email', address='$address', phone='$phone', gender='$gender' WHERE id='$editid'";
             $result = $this->conn->query($sql);
             if($result) {
                 header('location:index.php');
@@ -70,7 +89,7 @@
         }
 
         public function deleteRecord($deleteid) {
-            $sql = "DELETE FROM `crud` WHERE id='$deleteid'";
+            $sql = "DELETE FROM `student` WHERE id='$deleteid'";
             $result = $this->conn->query($sql);
             if($result) {
                 header('location:index.php');

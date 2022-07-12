@@ -1,19 +1,19 @@
 <?php
 include 'controller.php';
 
-$crud = new Crud();
+$student = new Student();
 
 if (isset($_POST['submit'])) {
-    $crud->insertRecord($_POST);
+    $student->insertRecord();
 }
 
 if (isset($_POST['update'])) {
-    $crud->updateRecord($_POST);
+    $student->updateRecord($id);
 }
 
 if (isset($_GET['deleteid'])) {
     $deleteid = $_GET['deleteid'];
-    $crud->deleteRecord($deleteid);
+    $student->deleteRecord($deleteid);
 }
 ?>
 
@@ -34,7 +34,7 @@ if (isset($_GET['deleteid'])) {
     <div class="container m-5">
         <h4>Display Records</h4>
         <table class="table table-dark table-striped">
-            <tr>
+            <tr class="text-center">
                 <th>S.N</th>
                 <th>Name</th>
                 <th>Email</th>
@@ -44,7 +44,7 @@ if (isset($_GET['deleteid'])) {
                 <th>Actions</th>
             </tr>
             <?php
-            $data = $crud->displayRecord();
+            $data = $student->displayRecord();
             $sn = 1;
             foreach ($data as $value) {
             ?>
